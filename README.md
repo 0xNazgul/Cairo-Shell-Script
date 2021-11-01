@@ -13,4 +13,12 @@ A simple script for cairo because I hate their terminal commands.
 ### Conclusion
 I'll be adding more options and what not as I learn more about cairo (I'm sure there are more tedious commands)
 
-P.S. If you hate having to always use ```source ~/cairo_venv/bin/activate``` then just go to your distro's .bashrc and add ```alias cairo='source ~/cairo_venv/bin/activate'``` under ```# Alias definitions```
+P.S. If you hate having to always use ```source ~/cairo_venv/bin/activate``` then just go to your distro's .bashrc and add ```alias cairo='source ~/cairo_venv/bin/activate'``` under ```# Alias definitions``` personally I use a funtion to source, cd to my projects folder, then open the folder in vs code and finally run the script:
+```bash
+pro() {
+	source ~/cairo_venv/bin/activate
+	cd ~/cairo_venv/Projects/
+	code .
+	./script.sh
+}
+```
