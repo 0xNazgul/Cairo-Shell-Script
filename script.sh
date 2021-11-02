@@ -28,9 +28,21 @@ then
   then 
     cairo-run --program=${file}_compiled.json --print_output --print_info --relocate_prints
     ./script.sh
+  elif [[ $option = polppi ]]
+  then 
+    cairo-run --program=${file}_compiled.json --print_output --layout=plain --program_input=${file}_input.json
+    ./script.sh
   elif [[ $option = polspi ]]
   then 
     cairo-run --program=${file}_compiled.json --print_output --layout=small --program_input=${file}_input.json
+    ./script.sh
+  elif [[ $option = poldpi ]]
+  then 
+    cairo-run --program=${file}_compiled.json --print_output --layout=dex --program_input=${file}_input.json
+    ./script.sh
+  elif [[ $option = polapi ]]
+  then 
+    cairo-run --program=${file}_compiled.json --print_output --layout=all --program_input=${file}_input.json
     ./script.sh
   elif [[ $option = trace ]]
   then
@@ -47,7 +59,11 @@ then
   echo run options: 
   echo poi = [--print-output --print_info]
   echo poir = [--print-output --print_info --relocate_prints]
+  echo polppi = [--print_output --layout=plain --program_input=file_name_input.json]
   echo polspi = [--print_output --layout=small --program_input=file_name_input.json]
+  echo poldpi = [--print_output --layout=dex --program_input=file_name_input.json]
+  echo polapi = [--print_output --layout=all --program_input=file_name_input.json]
+  
   echo trace = [--tracer]
   ./script.sh
 fi
