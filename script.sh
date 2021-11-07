@@ -77,18 +77,21 @@ then
   echo enter transaction hash:
   read thash
   starknet get_transaction --hash $thash
+  ./script.sh
 fi
 if [ $response = co ]
 then
   echo enter contract address:
   read addr
   starknet get_code --contract_address $addr
+  ./script.sh
 fi
 if [ $response = bo ]
 then
   echo enter block ID:
   read blid
   starknet get_block --id $blid
+  ./script.sh
 fi
 if [ $response = help ]
 then
