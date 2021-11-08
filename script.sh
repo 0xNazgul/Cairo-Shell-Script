@@ -33,6 +33,30 @@ then
   ./script.sh
 fi
 
+if [ $response = inv ]
+then 
+  echo What contract address?
+  read caddr 
+  echo What is the abi path?
+  read abipath
+  echo What is the function?
+  read function 
+  echo What is your inputs?
+  read inputs
+  starknet invoke --address $caddr --abi $abipath_abi.json --function $function --inputs $inputs
+fi
+
+if [ $response = call ]
+then 
+  echo What contract address?
+  read caddr
+  echo What is the abi path?
+  read abipath
+  echo What is the function?
+  read function 
+  starknet call --address $caddress --abi $abipath_abi.json --function $function 
+fi
+
 if [ $response = run ]
 then  
   echo What file?
@@ -77,41 +101,58 @@ then
   echo enter transaction hash:
   read thash
   starknet get_transaction --hash $thash
-  ./script.sh
 fi
+
 if [ $response = co ]
 then
   echo enter contract address:
   read addr
   starknet get_code --contract_address $addr
-  ./script.sh
 fi
+
 if [ $response = bo ]
 then
   echo enter block ID:
   read blid
   starknet get_block --id $blid
-  ./script.sh
 fi
+
+if [ $response = ts ]
+then
+  echo enter block ID:
+  read txhash
+  starknet tx_status --hash $txhash
+fi
+
 if [ $response = help ]
 then
-  echo comp - Is used to compile the file given
-  echo comp options:
-  echo contract = [ starknet-compile file --output file_compiled.json --abi file_abi.json ]
-  echo if not = [cairo-compile file --output file_compiled.json]
-  echo dep  - deploy the contract MAKE SURE TO NOT ADD .CAIRO OR _COMPILED.JSON
-  echo run - Is used to run the file with few options MAKE SURE TO NOT ADD .CAIRO OR _COMPILED.JSON
-  echo run options: 
-  echo poi = [--print-output --print_info]
-  echo poir = [--print-output --print_info --relocate_prints]
-  echo polppi = [--print_output --layout=plain --program_input=file_name_input.json]
-  echo polspi = [--print_output --layout=small --program_input=file_name_input.json]
-  echo poldpi = [--print_output --layout=dex --program_input=file_name_input.json]
-  echo polapi = [--print_output --layout=all --program_input=file_name_input.json]
-  echo trace = [--tracer]
-  echo cli options:
-  echo th = starknet get_transaction --hash TRANSACTION_HASH
-  echo co = starknet get_code --contract_address CONTRACT_ADDRESS
-  echo bl = starknet get_block --id BLOCK_ID
+  echo -e " 
+  //===============[]=======================================================================\\
+  ||    Command    ||                              Description                              ||
+  |]===============[]=======================================================================[|
+  || dep           || Deploy the contract MAKE SURE TO NOT ADD .CAIRO OR _COMPILED.JSON     ||
+  || inv           || Invokes a contract                                                    ||
+  || call          || Calls a function                                                      ||
+  || comp          || Is used to compile a file                                             ||
+  || comp options: ||                                                                       ||
+  || contract      || Compiles a starknet contract                                          ||
+  || If not        || Compiles a cairo file                                                 ||
+  ||---------------||-----------------------------------------------------------------------||
+  || run           || Is used to run the file MAKE SURE TO NOT ADD .CAIRO OR _COMPILED.JSON ||
+  || run options:  ||                                                                       ||
+  || poi           || --print-output --print_info                                           ||
+  || poir          || --print-output --print_info --relocate_prints                         ||
+  || polppi        || --print_output --layout=plain --program_input=file_name_input.json    ||
+  || polspi        || --print_output --layout=small --program_input=file_name_input.json    ||
+  || poldpi        || --print_output --layout=dex --program_input=file_name_input.json      ||
+  || polapi        || --print_output --layout=all --program_input=file_name_input.json      ||
+  || trace         || --tracer                                                              ||
+  ||---------------||-----------------------------------------------------------------------||
+  || cli options:  ||                                                                       ||
+  || th            || Gets a transactions information                                       ||
+  || co            || Gets a deployed contracts code in abi format                          ||
+  || bl            || Gets entire block information                                         ||
+  || ts            || Gets transactions current status                                      ||
+  \\===============[]=======================================================================//"
   ./script.sh
 fi
