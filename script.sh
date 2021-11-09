@@ -44,6 +44,7 @@ then
   echo What is your inputs?
   read inputs
   starknet invoke --address $caddr --abi $abipath_abi.json --function $function --inputs $inputs
+  ./script.sh
 fi
 
 if [ $response = call ]
@@ -55,6 +56,7 @@ then
   echo What is the function?
   read function 
   starknet call --address $caddress --abi $abipath_abi.json --function $function 
+  ./script.sh
 fi
 
 if [ $response = run ]
@@ -101,6 +103,7 @@ then
   echo enter transaction hash:
   read thash
   starknet get_transaction --hash $thash
+  ./script.sh
 fi
 
 if [ $response = co ]
@@ -108,6 +111,7 @@ then
   echo enter contract address:
   read addr
   starknet get_code --contract_address $addr
+  ./script.sh
 fi
 
 if [ $response = bo ]
@@ -115,19 +119,36 @@ then
   echo enter block ID:
   read blid
   starknet get_block --id $blid
+  ./script.sh
 fi
 
 if [ $response = ts ]
 then
-  echo enter block ID:
+  echo enter transaction hash:
   read txhash
+  echo With error? y or n?
+  read op 
+  
+  if [[ $op = n ]]
+  then
   starknet tx_status --hash $txhash
+  ./script.sh
+
+  elif [[ $op = y ]]
+  then
+    echo What is the _compiled.json?
+    read name
+    starknet tx_status --hash $txhash --contract $name_compiled.json --error_message
+    ./script.sh
+  else 
+    ./script.sh
+  fi
 fi
 
 if [ $response = help ]
 then
   echo -e " 
-  //===============[]=======================================================================\\
+  //===============[]========================================================================\\
   ||    Command    ||                              Description                              ||
   |]===============[]=======================================================================[|
   || dep           || Deploy the contract MAKE SURE TO NOT ADD .CAIRO OR _COMPILED.JSON     ||
@@ -153,6 +174,7 @@ then
   || co            || Gets a deployed contracts code in abi format                          ||
   || bl            || Gets entire block information                                         ||
   || ts            || Gets transactions current status                                      ||
-  \\===============[]=======================================================================//"
+  \\================[]=======================================================================//
+  "
   ./script.sh
 fi
