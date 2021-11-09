@@ -29,8 +29,20 @@ if [ $response = dep ]
 then 
   echo What file?
   read file
+  echo Any inputs? y or n?
+  read op
+  if [[ $op = n ]]
+  then
   starknet deploy --contract $file_compiled.json
   ./script.sh
+  elif [[ $op = y ]]
+  echo what is the input?
+  read inp
+  starknet deploy --contract $file_compiled.json --inputs $inp
+  ./script.sh
+  else
+  ./script.sh
+  fi
 fi
 
 if [ $response = inv ]
