@@ -1,6 +1,8 @@
 # Cairo-Shell-Script
 A simple script for cairo because I hate their terminal commands. 
 
+Just found out about [OpenZeppelin's nile](https://github.com/OpenZeppelin/nile) which is probably cleaner and easier to use. Wish I knew about it before I made this.
+
 ### How To Use
 
 * You'll first need to set up your cairo enviroment follow the instructions [here](https://www.cairo-lang.org/docs/quickstart.html)
